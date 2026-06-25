@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şükrü Saracoğlu | Kadıköy'ün Kalbi - Mega Proje</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="no-scroll">
+
+    <div id="background-video-wrapper">
+        <video id="background-video" autoplay muted loop playsinline preload="auto">
+            <source src="video/fenerbahçe site background 2.mp4" type="video/mp4">
+            <!-- Video dosyasını burada video/fenerbahçe site background 2.mp4 olarak yerleştirin -->
+        </video>
+    </div>
+
+    <canvas id="particles-bg"></canvas>
+
+    <div id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+        <div class="cursor-ripple"></div>
+    </div>
+
+    <div id="splash-screen">
+        <div class="splash-bg"></div>
+        
+        <div class="splash-content">
+            <h1 class="splash-title" id="splash-title" data-tr="BİR MABEDİN DOĞUŞU" data-en="BIRTH OF A TEMPLE">BİR MABEDİN DOĞUŞU</h1>
+            <p class="splash-desc" id="splash-desc" data-tr="Papazın Çayırı'ndan Milyonların Kalbine..." data-en="From the Priest's Meadow to Millions of Hearts...">Papazın Çayırı'ndan Milyonların Kalbine...</p>
+            
+            <div class="loading-container">
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                <div class="loading-text" id="loading-text" data-tr="Yükleniyor... %0" data-en="Loading... %0">Yükleniyor... %0</div>
+            </div>
+            
+            <button id="start-btn" onclick="openStadium()" style="display:none;" data-tr="TARİHİ YAZ" data-en="WRITE HISTORY">
+                TARİHİ YAZ
+            </button>
+        </div>
+        
+        <div class="flash-overlay"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="header-container">
+            
+            <div class="logo-area" id="logo-top-button" title="En üste git">
+                <img src="https://upload.wikimedia.org/wikipedia/tr/8/86/Fenerbah%C3%A7e_SK.png" alt="Fenerbahçe Logosu" class="logo-img">
+                <span class="logo-text">FENERBAHÇE</span>
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#hero" class="nav-link" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+                    <li><a href="#story" class="nav-link" data-tr="Tarih" data-en="History">Tarih</a></li>
+                    <li><a href="#trophies" class="nav-link" data-tr="Müze" data-en="Museum">Müze</a></li>
+                    <li><a href="#legends" class="nav-link" data-tr="Efsaneler" data-en="Legends">Efsaneler</a></li>
+                    <li><a href="#gallery" class="nav-link" data-tr="Galeri" data-en="Gallery">Galeri</a></li>
+                </ul>
+            </nav>
+            
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menüyü aç">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div id="mobile-nav-panel" class="mobile-nav-panel" aria-hidden="true">
+                <button id="mobile-nav-close" class="mobile-nav-close" aria-label="Menüyü kapat">×</button>
+                <nav class="mobile-nav">
+                    <ul>
+                        <li><a href="#hero" class="nav-link" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+                        <li><a href="#story" class="nav-link" data-tr="Tarih" data-en="History">Tarih</a></li>
+                        <li><a href="#trophies" class="nav-link" data-tr="Müze" data-en="Museum">Müze</a></li>
+                        <li><a href="#legends" class="nav-link" data-tr="Efsaneler" data-en="Legends">Efsaneler</a></li>
+                        <li><a href="#gallery" class="nav-link" data-tr="Galeri" data-en="Gallery">Galeri</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="header-right">
+                <div id="clock" class="clock-animate">
+                    00<span class="blink">:</span>00
+                </div>
+                <div class="lang-switch">
+                    <span id="lang-tr" class="active" onclick="switchLang('tr')">TR</span>
+                    <span id="lang-en" onclick="switchLang('en')">EN</span>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            
+            <div class="hero-badge-container">
+                <span class="hero-badge">
+                    <i class="fas fa-star"></i> EST. 1907
+                </span>
+                <span class="hero-badge">
+                    <i class="fas fa-fire"></i> <span id="hero-derby" data-tr="BÜYÜK DERBİYE" data-en="TO THE BIG DERBY">BÜYÜK DERBİYE</span>
+                </span>
+            </div>
+            
+            <div class="countdown-wrapper">
+                <div class="cd-box">
+                    <span id="cd-days">00</span>
+                    <p id="lbl-days" data-tr="GÜN" data-en="DAYS">GÜN</p>
+                </div>
+                <span class="cd-sep">:</span>
+                
+                <div class="cd-box">
+                    <span id="cd-hours">00</span>
+                    <p id="lbl-hours" data-tr="SAAT" data-en="HRS">SAAT</p>
+                </div>
+                <span class="cd-sep">:</span>
+                
+                <div class="cd-box">
+                    <span id="cd-mins">00</span>
+                    <p id="lbl-mins" data-tr="DAKİKA" data-en="MINS">DAKİKA</p>
+                </div>
+                <span class="cd-sep">:</span>
+                
+                <div class="cd-box">
+                    <span id="cd-secs">00</span>
+                    <p id="lbl-secs" data-tr="SANİYE" data-en="SECS">SANİYE</p>
+                </div>
+            </div>
+
+            <h1 class="hero-title">ŞÜKRÜ SARACOĞLU</h1>
+            <p class="hero-subtitle" id="hero-sub" data-tr="Burası Kadıköy, Buradan Çıkış Yok!" data-en="This is Kadikoy, No Way Out!">Burası Kadıköy, Buradan Çıkış Yok!</p>
+            
+            <div class="scroll-indicator">
+                <span class="mouse-icon"></span>
+                <p id="scroll-text" data-tr="Keşfet" data-en="Explore">Keşfet</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="story" class="section dark-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag" id="tag-founder" data-tr="EFSANE BAŞKAN" data-en="LEGENDARY PRESIDENT">EFSANE BAŞKAN</span>
+                <h2 id="title-founder" data-tr="Mehmet Şükrü Saracoğlu" data-en="Mehmet Sukru Saracoglu">Mehmet Şükrü Saracoğlu</h2>
+            </div>
+            
+            <div class="story-grid">
+                <div class="story-image-box">
+                    <img src="RESİMLER/mehmet-sukru-saracoglu.png" alt="Mehmet Şükrü Saracoğlu" class="president-img">
+                    <div class="img-overlay-text">1887 - 1953</div>
+                </div>
+                
+                <div class="story-text-content">
+                    <h3 class="gradient-text" id="story-h3" data-tr="Bir Devlet Adamı, Yürekten Bir Fenerbahçeli" data-en="A Statesman, A True Fenerbahce Fan">Bir Devlet Adamı, Yürekten Bir Fenerbahçeli</h3>
+                    
+                    <p id="story-p1" data-tr="Fenerbahçe tarihinin en uzun süre görev yapan başkanı olan Mehmet Şükrü Saracoğlu, kulübü sadece sportif başarılarla değil, kurumsal bir vizyonla geleceğe taşımıştır." data-en="Mehmet Şükrü Saracoğlu, the longest-serving president in Fenerbahçe's history, carried the club to the future not only with sporting achievements but with an institutional vision.">Fenerbahçe tarihinin en uzun süre görev yapan başkanı olan Mehmet Şükrü Saracoğlu, kulübü sadece sportif başarılarla değil, kurumsal bir vizyonla geleceğe taşımıştır.</p>
+                    
+                    <div class="story-highlight-box">
+                        <h4 id="story-h4" data-tr="<i class='fas fa-flag-checkered'></i> 1932: Tarihi Dönüm Noktası" data-en="<i class='fas fa-flag-checkered'></i> 1932: Historical Turning Point"><i class="fas fa-flag-checkered"></i> 1932: Tarihi Dönüm Noktası</h4>
+                        <p id="story-p2" data-tr="O dönem 'Papazın Çayırı' olarak bilinen arazi, Saracoğlu'nun şahsi kefaleti sayesinde 9.000 TL gibi bir bedelle Fenerbahçe'ye kazandırıldı. Bu adım, Türkiye'de bir kulübün kendi stadyum mülkiyetine sahip olduğu ilk andı." data-en="The land, then known as 'Priest's Meadow', was acquired by Fenerbahçe for 9,000 TL thanks to Saracoğlu's personal guarantee. This step was the first time a club owned its stadium property in Turkey.">O dönem "Papazın Çayırı" olarak bilinen arazi, Saracoğlu'nun şahsi kefaleti sayesinde 9.000 TL gibi bir bedelle Fenerbahçe'ye kazandırıldı. Bu adım, Türkiye'de bir kulübün kendi stadyum mülkiyetine sahip olduğu ilk andı.</p>
+                    </div>
+                    
+                    <div class="story-stats">
+                        <div class="s-stat">
+                            <h5 class="counter" data-target="16">0</h5>
+                            <span id="stat-1" data-tr="Yıl Başkanlık" data-en="Years Presidency">Yıl Başkanlık</span>
+                        </div>
+                        <div class="s-stat">
+                            <h5 class="counter" data-target="1932">0</h5>
+                            <span id="stat-2" data-tr="Mülkiyet Alımı" data-en="Property Acquired">Mülkiyet Alımı</span>
+                        </div>
+                        <div class="s-stat">
+                            <h5 class="counter" data-target="1998">0</h5>
+                            <span id="stat-3" data-tr="İsim Verilişi" data-en="Name Given">İsim Verilişi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trophies" class="section navy-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag" id="tag-trophy" data-tr="ŞANLI TARİH" data-en="GLORIOUS HISTORY">ŞANLI TARİH</span>
+                <h2 id="title-trophy" data-tr="Kupa Odası" data-en="Trophy Room">Kupa Odası</h2>
+                <p class="header-desc" id="desc-trophy" data-tr="Alın teri, inanç ve milyonların duasıyla kazanılan efsanevi zaferler." data-en="Legendary victories won with sweat, belief, and the prayers of millions.">Alın teri, inanç ve milyonların duasıyla kazanılan efsanevi zaferler.</p>
+            </div>
+            
+            <div class="trophy-showcase">
+                <div class="trophy-card" data-detail="Fenerbahçe 28 kez Türkiye şampiyonu oldu; bu sayede ligde en çok şampiyonluk kazanan takımlardan biri olarak tarihe geçti." data-year="1908-2026">
+                    <div class="trophy-img"><i class="fas fa-trophy"></i></div>
+                    <h3 id="tr-1" data-tr="Türkiye Şampiyonlukları" data-en="Turkish Championships">Türkiye Şampiyonlukları</h3>
+                    <p class="t-count">28 Kupa</p>
+                </div>
+                
+                <div class="trophy-card active-trophy" data-detail="Fenerbahçe Balkan Kupası'nı 1967-1968 sezonunda kazanarak uluslararası sahnede adını yazdırdı. Bu zafer Türk futbolunun ilk büyük Avrupa deneyimlerinden biriydi." data-year="1968">
+                    <div class="trophy-img"><i class="fas fa-star"></i></div>
+                    <h3 id="tr-2" data-tr="Balkan Kupası" data-en="Balkans Cup">Balkan Kupası</h3>
+                    <p class="t-count">1967-1968</p>
+                    <div class="t-glow"></div>
+                </div>
+                
+                <div class="trophy-card" data-detail="Türkiye Kupası 7 kez Fenerbahçe'ye kazandırıldı; bu sayede sarı-lacivertliler hem lig hem kupa şampiyonluklarını taçlandırdı." data-year="Çoklu">
+                    <div class="trophy-img"><i class="fas fa-shield-alt"></i></div>
+                    <h3 id="tr-3" data-tr="Türkiye Kupası" data-en="Turkish Cup">Türkiye Kupası</h3>
+                    <p class="t-count">7 Kupa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="legends" class="section dark-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag" id="tag-legends" data-tr="ÖLÜMSÜZLER" data-en="IMMORTALS">ÖLÜMSÜZLER</span>
+                <h2 id="title-legends" data-tr="Çubukluya Hayat Verenler" data-en="Those Who Gave Life to the Stripes">Çubukluya Hayat Verenler</h2>
+            </div>
+            
+            <div class="legends-grid">
+                <div class="legend-card" data-detail="Lefter, Türkiye futbol tarihinin en büyük isimlerinden biri olarak Fenerbahçe formasıyla 1938-1950 yılları arasında gösterdiği olağanüstü performansla hafızalara kazındı. 'Ordinaryüs' lakabını taşıyan efsane, santrafor kimliği ve kulübün simgesi haline gelen zaferleriyle Türk futboluna damga vurdu.">
+                    <div class="legend-img">
+                        <img src="RESİMLER/lefter-kucukandonyadis.jpeg" alt="Lefter Küçükandonyadis">
+                    </div>
+                    <div class="legend-info">
+                        <h3>Lefter Küçükandonyadis</h3>
+                        <span class="legend-role">Ordinaryüs</span>
+                        <p id="leg-1" data-tr="Fenerbahçe tarihinin en ikonik figürü. Heykeli dikilen ilk futbolcu." data-en="The most iconic figure in Fenerbahce history. First player to have a statue built.">Fenerbahçe tarihinin en ikonik figürü. Heykeli dikilen ilk futbolcu.</p>
+                    </div>
+                </div>
+                <div class="legend-card" data-detail="Can Bartu, hem futbol hem basketbol milli takımında forma giymiş nadir sporculardan biridir. İtalya'da 'Sinyor' lakabıyla tanındı ve Fenerbahçe'ye döndüğünde yeteneği, zarafeti ve kariyerindeki en değerli zaferleriyle klasikler arasına girdi.">
+                    <div class="legend-img">
+                        <img src="RESİMLER/can-bartu.jpeg" alt="Can Bartu">
+                    </div>
+                    <div class="legend-info">
+                        <h3>Can Bartu</h3>
+                        <span class="legend-role">Sinyor</span>
+                        <p id="leg-2" data-tr="İtalyanların Sinyor lakabını taktığı, zerafetin sahaya yansımış hali." data-en="The epitome of elegance on the pitch, unforgettable Signor of the Italians.">İtalyanların Sinyor lakabını taktığı, zerafetin sahaya yansımış hali.</p>
+                    </div>
+                </div>
+                <div class="legend-card" data-detail="Alex de Souza, 2001-2012 yıllarında Kadıköy'de oynarken attığı gol ve asistlerle taraftarların gönlünü fethetti. Orta sahadaki liderliği, serbest vuruş ustalığı ve maçları kontrol etme yeteneği onu efsaneler arasına yerleştirdi.">
+                    <div class="legend-img">
+                        <img src="RESİMLER/alex-de-souza.jpeg" alt="Alex de Souza">
+                    </div>
+                    <div class="legend-info">
+                        <h3>Alex de Souza</h3>
+                        <span class="legend-role">Kaptan</span>
+                        <p id="leg-3" data-tr="Heykeli dikilen Brezilyalı efsane. Kadıköy'ün unutulmaz 10 numarası." data-en="The Brazilian legend with a statue. The unforgettable number 10 of Kadıköy.">Heykeli dikilen Brezilyalı efsane. Kadıköy'ün unutulmaz 10 numarası.</p>
+                    </div>
+                </div>
+                <div class="legend-card" data-detail="Volkan Demirel, Fenerbahçe kalesini 17 sezon boyunca koruyarak kritik kurtarışları ve penaltı anlarındaki soğukkanlılığıyla efsaneleşti. O, kadro liderliği ve taraftarla kurduğu özel iletişimle unutulmaz bir kaptan oldu.">
+                    <div class="legend-img">
+                        <img src="RESİMLER/volkan-demirel.jpeg" alt="Volkan Demirel">
+                    </div>
+                    <div class="legend-info">
+                        <h3>Volkan Demirel</h3>
+                        <span class="legend-role" id="role-4" data-tr="Efsane Kaleci" data-en="Legend Goalkeeper">Efsane Kaleci</span>
+                        <p id="leg-4" data-tr="17 yıl boyunca Fenerbahçe kalesini koruyan büyük kaptan." data-en="The great captain who guarded the Fenerbahçe goal for 17 years.">17 yıl boyunca Fenerbahçe kalesini koruyan büyük kaptan.</p>
+                    </div>
+                </div>
+                <div class="legend-card" data-detail="Kadıköy'ün sarı-lacivert ruhunu simgeleyen anlar, saha içindeki efsaneleri ve taraftar sevgisini aynı karede topluyor. Bu görsel, Fenerbahçe'nin tarihindeki büyük mücadeleleri temsil ediyor.">
+                    <div class="legend-img">
+                        <img src="RESİMLER/saha içi.jpg" alt="Fenerbahçe saha içi">
+                    </div>
+                    <div class="legend-info">
+                        <h3>Saha İçi Efsanesi</h3>
+                        <span class="legend-role">Kadıköy Ruhu</span>
+                        <p id="leg-5" data-tr="Kadıköy'de yazılan destanların sahadaki kareleri, tribünlerle birleşen futbol muhteşemliği." data-en="The legendary moments on the pitch in Kadıköy, where football and fans become one.">Kadıköy'de yazılan destanların sahadaki kareleri, tribünlerle birleşen futbol muhteşemliği.</p>
+                    </div>
+                </div>
+                <div class="legend-card" data-detail="Tribünlerin, şarkıların ve sarı-lacivert inancın birleştiği anlar; Fenerbahçe efsanelerini sahada ve tribünde tek bir hikâyede topluyor.">
+                    <div class="legend-img">
+                        <img src="RESİMLER/TARAFTAR.jpg" alt="Fenerbahçe taraftarları">
+                    </div>
+                    <div class="legend-info">
+                        <h3>Taraftar Efsanesi</h3>
+                        <span class="legend-role">Sarı-Lacivert Aşk</span>
+                        <p id="leg-6" data-tr="Stadyumda bütünleşen milyonların enerjisi, takımın gerçek 12. oyuncusu olarak tarihe kazındı." data-en="The energy of millions united in the stadium, written into history as the team's true 12th player.">Stadyumda bütünleşen milyonların enerjisi, takımın gerçek 12. oyuncusu olarak tarihe kazındı.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chants" class="section navy-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag" id="tag-chants" data-tr="TÜYLERİ DİKEN DİKEN EDENLER" data-en="GOOSEBUMPS">TÜYLERİ DİKEN DİKEN EDENLER</span>
+                <h2 id="title-chants" data-tr="Kadıköy Marşları" data-en="Kadikoy Chants">Kadıköy Marşları</h2>
+            </div>
+            
+            <div class="chant-grid">
+                <div class="chant-box" data-audio="audio/yasa-fenerbahce.mp3" onclick="playChant(this)">
+                    <div class="equalizer">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <i class="fas fa-play-circle play-btn"></i>
+                    <h3>Yaşa Fenerbahçe</h3>
+                    <p class="lyrics">"Cihatlar, Lefterler, Canlar, Fikretler..."</p>
+                </div>
+                
+                <div class="chant-box" data-audio="audio/mohikan-marsi.mp3" onclick="playChant(this)">
+                    <div class="equalizer">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <i class="fas fa-play-circle play-btn"></i>
+                    <h3>Mohikan Marşı</h3>
+                    <p class="lyrics">"Saldır Kanarya, büyük taraftarın arkanda!"</p>
+                </div>
+                
+                <div class="chant-box" data-audio="audio/100-yil-marsi.mp3" onclick="playChant(this)">
+                    <div class="equalizer">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <i class="fas fa-play-circle play-btn"></i>
+                    <h3>100. Yıl Marşı</h3>
+                    <p class="lyrics">"Bütün dünya bir yana, Fenerbahçem bir yana."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section dark-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag" id="tag-gal" data-tr="GÖRSEL ŞÖLEN" data-en="VISUAL FEAST">GÖRSEL ŞÖLEN</span>
+                <h2 id="title-gal" data-tr="Mabedin Yüzleri" data-en="Faces of the Temple">Mabedin Yüzleri</h2>
+            </div>
+            
+            <div class="gallery-masonry">
+                <div class="gallery-item">
+                    <img src="RESİMLER/EFSANE BAŞKAN.jpg" alt="Efsane Başkan" class="gal-img face-top">
+                    <div class="g-overlay" id="gal-1" data-tr="Efsane Başkan" data-en="Legendary President">Efsane Başkan</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="RESİMLER/TARAFTAR.jpg" alt="Taraftar" class="gal-img face-head">
+                    <div class="g-overlay" id="gal-2" data-tr="Taraftar" data-en="Supporters">Taraftar</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="RESİMLER/SAHA DIŞI.jpg" alt="Saha Dışı" class="gal-img face-head">
+                    <div class="g-overlay" id="gal-3" data-tr="Saha Dışı" data-en="Off the Pitch">Saha Dışı</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="RESİMLER/saha içi.jpg" alt="Saha İçi" class="gal-img face-head">
+                    <div class="g-overlay" id="gal-4" data-tr="Saha İçi" data-en="On the Pitch">Saha İçi</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="RESİMLER/MÜZE.jpg" alt="Müze" class="gal-img face-head">
+                    <div class="g-overlay" id="gal-5" data-tr="Müze" data-en="Museum">Müze</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mega-footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-brand">
+                    <h2 class="f-logo">FENERBAHÇE SK</h2>
+                    <p id="foot-desc" data-tr="Sporun beşiği, milyonların sevgilisi. Cumhuriyetin feneri Kadıköy'den yanmaya devam ediyor." data-en="The cradle of sports, the darling of millions. The lantern of the Republic continues to burn from Kadıköy.">Sporun beşiği, milyonların sevgilisi. Cumhuriyetin feneri Kadıköy'den yanmaya devam ediyor.</p>
+                    
+                    <div class="social-links">
+                        <a href="https://twitter.com/Fenerbahce" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/fenerbahce/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/user/Fenerbahce" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 id="foot-links" data-tr="Hızlı Linkler" data-en="Quick Links">Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> <span id="link-1" data-tr="Müze Ziyareti" data-en="Museum Visit">Müze Ziyareti</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> <span id="link-2" data-tr="Stadyum Turu" data-en="Stadium Tour">Stadyum Turu</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> <span id="link-3" data-tr="Kombine & Bilet" data-en="Tickets">Kombine & Bilet</span></a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> <span id="link-4" data-tr="Fenerium" data-en="Fenerium">Fenerium</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-dev">
+                    <h3 id="foot-dev" data-tr="Geliştirici" data-en="Developer">Geliştirici</h3>
+                    <p class="dev-name">SOYKAN AN</p>
+                    
+                    <p class="dev-desc" id="dev-1" data-tr="Kırşehir Ahi Evran Üniversitesi Bilgisayar Destekli Tasarım ve Animasyon öğrencisi." data-en="Kirsehir Ahi Evran University Computer Aided Design and Animation student.">Kırşehir Ahi Evran Üniversitesi Bilgisayar Destekli Tasarım ve Animasyon öğrencisi.</p>
+                    
+                    <p class="dev-desc mt-2" id="dev-2" data-tr="3D modelleme, web animasyonları, oyun geliştirme ve dijital deneyim tasarımı alanlarında uzmanlaşmaktadır." data-en="Specializes in 3D modeling, web animations, game development and digital design.">3D modelleme, web animasyonları, oyun geliştirme ve dijital deneyim tasarımı alanlarında uzmanlaşmaktadır.</p>
+                </div>
+                
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Şükrü Saracoğlu Dijital Deneyimi. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <div id="legend-detail-overlay" class="legend-detail-overlay" aria-hidden="true">
+        <div class="legend-detail-panel">
+            <button class="legend-detail-close" aria-label="Kapat">×</button>
+            <div class="legend-detail-img">
+                <img src="" alt="">
+            </div>
+            <div class="legend-detail-content">
+                <h3 class="legend-detail-name"></h3>
+                <span class="legend-detail-role"></span>
+                <p class="legend-detail-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="trophy-detail-overlay" class="trophy-detail-overlay" aria-hidden="true">
+        <div class="trophy-detail-panel">
+            <button class="trophy-detail-close" aria-label="Kapat">×</button>
+            <h3 class="trophy-detail-title"></h3>
+            <div class="trophy-detail-meta"></div>
+            <p class="trophy-detail-text"></p>
+        </div>
+    </div>
+
+    <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Sayfanın en üstüne git">↑</button>
+    
+    <script src="main.js"></script>
+
+</body>
+</html>
